@@ -4,7 +4,9 @@ A bot that reviews GitHub pull requests for security problems and leaves comment
 
 When a PR is opened or updated, GitHub sends a webhook to a small FastAPI server. The server pulls the diff, asks Claude to review it like a strict security engineer (with the OWASP Top 10 as the checklist), and posts what it finds as one review: a short summary plus inline comments, with a one-click "Commit suggestion" fix when there's a small, safe one.
 
-A real comment it left on a test PR:
+![The bot's comment on a test PR where a code comment told "the AI reviewer" to skip the file](docs/prompt-injection-comment.png)
+
+That test PR had a code comment telling "the AI reviewer" the file was already approved. The bot flagged it instead of obeying. Here's another comment it left on the same PR, about a real bug:
 
 > `name` is joined onto the upload folder without any checks, so someone could use `../` or an absolute path to download any file the server can read, like config files or keys. Resolving the path and confirming it stays inside the upload folder fixes this; `send_from_directory` does that for you.
 
