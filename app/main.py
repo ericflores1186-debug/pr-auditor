@@ -12,7 +12,8 @@ config.check()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("pr-auditor")
 
-app = FastAPI(title="PR Auditor")
+# no public API docs page, github is the only real caller
+app = FastAPI(title="PR Auditor", docs_url=None, redoc_url=None, openapi_url=None)
 
 # pull_request actions that mean there's new code to look at
 REVIEW_ACTIONS = {"opened", "reopened", "synchronize", "ready_for_review"}
